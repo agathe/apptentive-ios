@@ -93,14 +93,14 @@ NSString *const ATAPIRequestStatusChanged = @"ATAPIRequestStatusChanged";
 			break;
 		case 401:
 			self.failed = YES;
-			self.errorTitle = ATLocalizedString(@"Authentication Failed", @"");
-			self.errorMessage = ATLocalizedString(@"Wrong username and/or password.", @"");
+			self.errorTitle = ATLocalizedString(@"AuthenticationFailed", @"Authentication Failed");
+			self.errorMessage = ATLocalizedString(@"WrongUsernamePassword", @"Wrong username and/or password.");
 			break;
 		case 304:
 			break;
 		default:
 			self.failed = YES;
-			self.errorTitle = ATLocalizedString(@"Server error.", @"");
+			self.errorTitle = ATLocalizedString(@"ServerError", @"Server error.");
 			self.errorMessage = [NSHTTPURLResponse localizedStringForStatusCode:statusCode];
 			break;
 	}
@@ -143,8 +143,8 @@ NSString *const ATAPIRequestStatusChanged = @"ATAPIRequestStatusChanged";
 			id json = [s JSONValue];
 			if (!json) {
 				self.failed = YES;
-				self.errorTitle = ATLocalizedString(@"Invalid response from server.", @"");
-				self.errorMessage = ATLocalizedString(@"Server did not return properly formatted JSON.", @"");
+				self.errorTitle = ATLocalizedString(@"InvalidServerResponse", @"Invalid response from server.");
+				self.errorMessage = ATLocalizedString(@"ServerJSONResponseFormat", @"Server did not return properly formatted JSON.");
 			}
 			result = json;
 			break;
@@ -168,10 +168,10 @@ NSString *const ATAPIRequestStatusChanged = @"ATAPIRequestStatusChanged";
 	}
 	self.failed = YES;
 	if (sender.failedAuthentication || sender.statusCode == 401) {
-		self.errorTitle = ATLocalizedString(@"Authentication Failed", @"");
-		self.errorMessage = ATLocalizedString(@"Wrong username and/or password.", @"");
+		self.errorTitle = ATLocalizedString(@"AuthenticationFailed", @"");
+		self.errorMessage = ATLocalizedString(@"WrongUsernamePassword", @"Wrong username and/or password.");
 	} else {
-		self.errorTitle = ATLocalizedString(@"Network Connection Error", @"");
+		self.errorTitle = ATLocalizedString(@"NetworkConnectionError", @"Network Connection Error");
 		self.errorMessage = [sender.connectionError localizedDescription];
 	}
     //*!!!!! Prefix line with // to debug HTTP stuff.

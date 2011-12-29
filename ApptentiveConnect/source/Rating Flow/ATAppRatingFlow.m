@@ -152,19 +152,19 @@ static ATAppRatingFlow *sharedRatingFlow = nil;
 - (IBAction)showEnjoymentDialog:(id)sender
 #endif
 {
-    NSString *title = [NSString stringWithFormat:NSLocalizedString(@"Do you love %@?", @"Title for enjoyment alert view. Parameter is app name."), [self appName]];
+    NSString *title = [NSString stringWithFormat:ATLocalizedString(@"DoYouLove", @"Do you love %@?"), [self appName]];
 #if TARGET_OS_IPHONE
     self.viewController = vc;
     if (!enjoymentDialog) {
-        enjoymentDialog = [[UIAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"No", @"no"), NSLocalizedString(@"Yes", @"yes"), nil];
+        enjoymentDialog = [[UIAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:ATLocalizedString(@"No", @"no"), ATLocalizedString(@"Yes", @"yes"), nil];
         [enjoymentDialog show];
     }
 #elif TARGET_OS_MAC
     NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-    [alert addButtonWithTitle:NSLocalizedString(@"Yes", @"yes")];
-    [alert addButtonWithTitle:NSLocalizedString(@"No", @"no")];
+    [alert addButtonWithTitle:ATLocalizedString(@"Yes", @"yes")];
+    [alert addButtonWithTitle:ATLocalizedString(@"No", @"no")];
     [alert setMessageText:title];
-    [alert setInformativeText:NSLocalizedString(@"You've been using this app for a while. Are you enjoying using it?", @"Enjoyment dialog text")];
+    [alert setInformativeText:ATLocalizedString(@"EnjoymentDialog", @"You've been using this app for a while. Are you enjoying using it?")];
     [alert setAlertStyle:NSInformationalAlertStyle];
     [alert setIcon:[NSImage imageNamed:NSImageNameApplicationIcon]];
     NSUInteger result = [alert runModal];
@@ -188,11 +188,11 @@ static ATAppRatingFlow *sharedRatingFlow = nil;
 - (IBAction)showRatingDialog:(id)sender 
 #endif
 {
-    NSString *title = [NSString stringWithFormat:NSLocalizedString(@"Thank You", @"Rate app title.")];
-    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"We're so happy to hear that you love %@! It'd be really helpful if you rated us in the App Store. Thanks so much for spending some time with us.", @"Rate app message. Parameter is app name."), [self appName]];
-    NSString *rateAppTitle = [NSString stringWithFormat:NSLocalizedString(@"Rate %@", @"Rate app button title"), [self appName]];
-    NSString *noThanksTitle = NSLocalizedString(@"No Thanks", @"cancel title for app rating dialog");
-    NSString *remindMeTitle = NSLocalizedString(@"Remind Me Later", @"Remind me later button title");
+    NSString *title = ATLocalizedString(@"RateAppTitle", @"Thank you");
+    NSString *message = [NSString stringWithFormat:ATLocalizedString(@"RateAppMessage", @"We're so happy to hear that you love %@...."), [self appName]];
+    NSString *rateAppTitle = [NSString stringWithFormat:ATLocalizedString(@"RateAppname", @"Rate %@"), [self appName]];
+    NSString *noThanksTitle = ATLocalizedString(@"RateCancelTitle", @"No Thanks");
+    NSString *remindMeTitle = ATLocalizedString(@"RemindMeLater", @"Remind me later button title");
 #if TARGET_OS_IPHONE
     self.viewController = vc;
     if (!ratingDialog) {
@@ -231,7 +231,7 @@ static ATAppRatingFlow *sharedRatingFlow = nil;
                 NSLog(@"No view controller to present feedback interface!!");
             } else {
                 ATConnect *connection = [ATConnect sharedConnection];
-                connection.customPlaceholderText = NSLocalizedString(@"What can we do to ensure that you love our app? We appreciate your constructive feedback.", @"Custom placeholder feedback text when user is unhappy with the application.");
+                connection.customPlaceholderText = ATLocalizedString(@"CustomFeedbackPlaceholder", @"What can we do to ensure that you love our app? We appreciate your constructive feedback.");
                 ATFeedbackControllerType oldType = connection.feedbackControllerType;
                 connection.feedbackControllerType = ATFeedbackControllerSimple;
                 [connection presentFeedbackControllerFromViewController:self.viewController];

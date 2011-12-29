@@ -144,24 +144,24 @@ enum {
 	
 	CGRect endingFrame = [[UIScreen mainScreen] applicationFrame];
 	
-	CGPoint startingPoint = CGPointZero;
+//	CGPoint startingPoint = CGPointZero;
 	
-	UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+//	UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
 	
-    switch (orientation) {
-		case UIInterfaceOrientationPortraitUpsideDown:
-			startingPoint = CGPointMake(center.x, center.y + self.window.bounds.size.height);
-			break;
-        case UIInterfaceOrientationLandscapeLeft:
-			startingPoint = CGPointMake(center.x - self.window.bounds.size.width, center.y);
-            break;
-        case UIInterfaceOrientationLandscapeRight:
-			startingPoint = CGPointMake(center.x + self.window.bounds.size.width, center.y);
-            break;
-        default: // as UIInterfaceOrientationPortrait
-			startingPoint = CGPointMake(center.x, center.y - parentWindow.bounds.size.height);
-            break;
-    }
+//    switch (orientation) {
+//		case UIInterfaceOrientationPortraitUpsideDown:
+//			startingPoint = CGPointMake(center.x, center.y + self.window.bounds.size.height);
+//			break;
+//        case UIInterfaceOrientationLandscapeLeft:
+//			startingPoint = CGPointMake(center.x - self.window.bounds.size.width, center.y);
+//            break;
+//        case UIInterfaceOrientationLandscapeRight:
+//			startingPoint = CGPointMake(center.x + self.window.bounds.size.width, center.y);
+//            break;
+//        default: // as UIInterfaceOrientationPortrait
+//			startingPoint = CGPointMake(center.x, center.y - parentWindow.bounds.size.height);
+//            break;
+//    }
 	
 	[self positionInWindow];
 	
@@ -220,7 +220,7 @@ enum {
 	self.grayLineView.layer.opaque = NO;
 	
 	self.logoImageView.image = [ATBackend imageNamed:@"at_apptentive_icon_small"];
-	self.taglineLabel.text = ATLocalizedString(@"Feedback Powered by Apptentive", @"Tagline text");
+	self.taglineLabel.text = ATLocalizedString(@"FeedbackPowered", @"Feedback Powered by Apptentive");
 	
 	if ([self shouldShowPaperclip]) {
 		CGRect viewBounds = self.view.bounds;
@@ -257,7 +257,7 @@ enum {
 	[toolbarItems addObject:sendButton];
 	
 	UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-	titleLabel.text = ATLocalizedString(@"Give Feedback", @"Title of feedback screen.");
+	titleLabel.text = ATLocalizedString(@"GiveFeedback", @"Title of feedback screen.");
 	titleLabel.textAlignment = UITextAlignmentCenter;
 	titleLabel.textColor = [UIColor colorWithRed:105/256. green:105/256. blue:105/256. alpha:1.0];
 	titleLabel.shadowColor = [UIColor whiteColor];
@@ -274,12 +274,12 @@ enum {
 	[titleButton release], titleButton = nil;
 	[titleLabel release], titleLabel = nil;
 	
-	self.emailField.placeholder = ATLocalizedString(@"Email Address", @"Email Address Field Placeholder");
+	self.emailField.placeholder = ATLocalizedString(@"EmailAddress", @"Email Address Field Placeholder");
 	
     if (self.customPlaceholderText) {
         self.feedbackView.placeholder = self.customPlaceholderText;
     } else {
-        self.feedbackView.placeholder = ATLocalizedString(@"Feedback (required)", @"Feedback placeholder");
+        self.feedbackView.placeholder = ATLocalizedString(@"FeedbackRequired", @"Feedback (required)");
     }
 	
 	self.toolbar.items = toolbarItems;
@@ -309,9 +309,9 @@ enum {
 	[self captureFeedbackState];
     if (!self.feedback.email || [self.feedback.email length] == 0) {
 		self.window.windowLevel = UIWindowLevelNormal;
-        NSString *title = NSLocalizedString(@"No email address?", @"Lack of email dialog title.");
-        NSString *message = NSLocalizedString(@"We can't respond without one.\n\n\n", @"Lack of email dialog message.");
-        UIAlertView *emailAlert = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:nil  otherButtonTitles:NSLocalizedString(@"Send Feedback", @"Send button title"), nil];
+        NSString *title = ATLocalizedString(@"NoEmailAddress", @"Lack of email dialog title.");
+        NSString *message = ATLocalizedString(@"NoEmailMessage", @"We can't respond without one.\n\n\n");
+        UIAlertView *emailAlert = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:nil  otherButtonTitles:ATLocalizedString(@"SendFeedback", @"Send button title"), nil];
         
         UITextField *field = [[UITextField alloc] initWithFrame:CGRectMake(16, 83, 252, 25)];
         field.font = [UIFont systemFontOfSize:18];
@@ -321,7 +321,7 @@ enum {
 		field.keyboardType = UIKeyboardTypeEmailAddress;
         field.delegate = self;
         field.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        field.placeholder = NSLocalizedString(@"Email Address", @"Email address popup placeholder text.");
+        field.placeholder = ATLocalizedString(@"EmailAddress", @"Email address popup placeholder text.");
         field.borderStyle = UITextBorderStyleRoundedRect;
         field.tag = kATEmailAlertTextFieldTag;
         [field becomeFirstResponder];
@@ -651,7 +651,8 @@ enum {
 				
 				if (thumbnailView != nil) {
 					[thumbnailView removeFromSuperview];
-					[thumbnailView release], thumbnailView = nil;
+//					[thumbnailView release];
+                    thumbnailView = nil;
 				}
 				if (photoFrameView != nil) {
 					[photoFrameView removeFromSuperview];
@@ -725,7 +726,7 @@ enum {
     [[ATBackend sharedBackend] sendFeedback:self.feedback];
 	UIWindow *parentWindow = [self windowForViewController:presentingViewController];
     ATHUDView *hud = [[ATHUDView alloc] initWithWindow:parentWindow];
-    hud.label.text = ATLocalizedString(@"Thanks!", @"Text in thank you display upon submitting feedback.");
+    hud.label.text = ATLocalizedString(@"Thanks", @"Thanks!");
     [hud show];
     [hud autorelease];
 	[self dismiss:YES];

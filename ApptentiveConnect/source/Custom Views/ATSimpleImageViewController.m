@@ -94,7 +94,7 @@ NSString * const ATImageViewChoseImage = @"ATImageViewChoseImage";
 		label.textColor = [UIColor whiteColor];
 		label.userInteractionEnabled = NO;
 		label.textAlignment = UITextAlignmentCenter;
-		label.text = ATLocalizedString(@"You can include a screenshot by choosing a photo from your photo library above.\n\nTo take a screenshot, hold down the power and home buttons at the same time.", @"Description of what to do when there is no screenshot.");
+		label.text = ATLocalizedString(@"IncludeScreenshot", @"You can include a screenshot by choosing a photo from your photo library above.\n\nTo take a screenshot, hold down the power and home buttons at the same time.");
 		[self.containerView addSubview:container];
 		[container sizeToFit];
 		[container addSubview:label];
@@ -136,9 +136,14 @@ NSString * const ATImageViewChoseImage = @"ATImageViewChoseImage";
 	if (controller.attachmentOptions && ATFeedbackAllowTakePhotoAttachment) {
 		UIActionSheet *actionSheet = nil;
 		if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-			actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:ATLocalizedString(@"Cancel", @"Cancel Button Title") destructiveButtonTitle:nil otherButtonTitles:ATLocalizedString(@"Choose From Library", @"Choose Photo Button Title"), ATLocalizedString(@"Take Photo", @"Take Photo Button Title"), nil];
+			actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self 
+                                             cancelButtonTitle:ATLocalizedString(@"Cancel", @"Cancel Button Title") destructiveButtonTitle:nil 
+                                             otherButtonTitles:ATLocalizedString(@"ChooseFromLibrary", @"Choose From Library"), 
+                           ATLocalizedString(@"TakePhoto", @"Take Photo Button Title"), nil];
 		} else {
-			actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:ATLocalizedString(@"Cancel", @"Cancel Button Title") destructiveButtonTitle:nil otherButtonTitles:ATLocalizedString(@"Choose From Library", @"Choose Photo Button Title"), nil];
+			actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self 
+                                             cancelButtonTitle:ATLocalizedString(@"Cancel", @"Cancel Button Title") destructiveButtonTitle:nil 
+                                             otherButtonTitles:ATLocalizedString(@"ChooseFromLibrary", @"Choose Photo Button Title"), nil];
 		}
 		[actionSheet showInView:self.view];
 		[actionSheet autorelease];

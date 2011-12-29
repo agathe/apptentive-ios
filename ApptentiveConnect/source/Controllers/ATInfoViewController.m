@@ -157,7 +157,7 @@ enum {
 - (NSString *)tableView:(UITableView *)aTableView titleForHeaderInSection:(NSInteger)section {
     NSString *result = nil;
     if (section == kSectionTasks) {
-        result = NSLocalizedString(@"Running Tasks", @"Running tasks section header");
+        result = ATLocalizedString(@"RunningTasks", @"Running tasks");
     }
     return result;
 }
@@ -167,9 +167,9 @@ enum {
     if (section == kSectionTasks) {
         ATTaskQueue *queue = [ATTaskQueue sharedTaskQueue];
         if ([queue count]) {
-            result = NSLocalizedString(@"These are the pieces of feedback which are currently being submitted.", @"Section footer for feedback being uploaded.");
+            result = ATLocalizedString(@"FeedbackBeingSubmitted", @"These are the pieces of feedback which are currently being submitted.");
         } else {
-            result = NSLocalizedString(@"No feedback waiting to upload.", @"Section footer for no feedback being updated.");
+            result = ATLocalizedString(@"NoFeedbackToUpload", @"No feedback waiting to upload.");
         }
     }
     return result;
