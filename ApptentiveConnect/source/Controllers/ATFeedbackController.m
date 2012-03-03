@@ -293,8 +293,8 @@ enum {
 }
 
 - (void)viewDidUnload {
-    [super viewDidUnload];
 	[self teardown];
+    [super viewDidUnload];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
