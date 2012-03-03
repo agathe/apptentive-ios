@@ -17,6 +17,14 @@
 #define kATAppRatingDefaultSignificantEventsBeforePrompt 10
 #define kATAppRatingDefaultDaysBeforeRePrompting 5
 
+
+#if TARGET_OS_IPHONE
+@class ATAppRatingFlow;
+@protocol ATAppRatingFlowDelegate <NSObject>
+- (void) ratingFlow:(ATAppRatingFlow*)ratingFlow dislikeApp:(BOOL)dislike;
+@end
+#endif
+
 /*! A workflow for a user either giving feedback on or rating the current
  application. */
 @interface ATAppRatingFlow : NSObject 
@@ -59,6 +67,10 @@
 @property (nonatomic, assign) NSUInteger daysBeforeRePrompting;
 
 #if TARGET_OS_IPHONE
+
+// Agathe - added to possibly give the hand to a delegate
+@property (nonatomic, assign)id<ATAppRatingFlowDelegate> flowdelegate;
+
 /*! 
  Call when the application is done launching. If we should be able to
  prompt for a rating, pass YES for canPromptRating. The viewController is

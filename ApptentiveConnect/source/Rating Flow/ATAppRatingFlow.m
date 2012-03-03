@@ -56,6 +56,7 @@ static ATAppRatingFlow *sharedRatingFlow = nil;
 @synthesize daysBeforePrompt, usesBeforePrompt, significantEventsBeforePrompt, daysBeforeRePrompting;
 #if TARGET_OS_IPHONE
 @synthesize viewController;
+@synthesize flowdelegate;
 #endif
 
 - (id)initWithAppID:(NSString *)anITunesAppID {
@@ -230,14 +231,19 @@ static ATAppRatingFlow *sharedRatingFlow = nil;
             if (!self.viewController) {
                 NSLog(@"No view controller to present feedback interface!!");
             } else {
-                ATConnect *connection = [ATConnect sharedConnection];
-                connection.customPlaceholderText = ATLocalizedString(@"CustomFeedbackPlaceholder", @"What can we do to ensure that you love our app? We appreciate your constructive feedback.");
-                ATFeedbackControllerType oldType = connection.feedbackControllerType;
-                connection.feedbackControllerType = ATFeedbackControllerSimple;
-                [connection presentFeedbackControllerFromViewController:self.viewController];
-                connection.customPlaceholderText = nil;
-                self.viewController = nil;
-                connection.feedbackControllerType = oldType;
+                if (self.flowdelegate && [self.flowdelegate respondsToSelector:@selector(ratingFlow:dislikeApp:)]) {
+                    [self.flowdelegate ratingFlow:self dislikeApp:YES];
+                }
+                else {
+                    ATConnect *connection = [ATConnect sharedConnection];
+                    connection.customPlaceholderText = ATLocalizedString(@"CustomFeedbackPlaceholder", @"What can we do to ensure that you love our app? We appreciate your constructive feedback.");
+                    ATFeedbackControllerType oldType = connection.feedbackControllerType;
+                    connection.feedbackControllerType = ATFeedbackControllerSimple;
+                    [connection presentFeedbackControllerFromViewController:self.viewController];
+                    connection.customPlaceholderText = nil;
+                    self.viewController = nil;
+                    connection.feedbackControllerType = oldType;
+                }
             }
         } else if (buttonIndex == 1) { // yes
             [self showRatingDialog:self.viewController];
