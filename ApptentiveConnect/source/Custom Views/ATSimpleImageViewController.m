@@ -69,7 +69,11 @@ NSString * const ATImageViewChoseImage = @"ATImageViewChoseImage";
 		CGFloat xScale = boundsSize.width / imageSize.width;
 		CGFloat yScale = boundsSize.height / imageSize.height;
 		CGFloat minScale = MIN(xScale, yScale);
-		CGFloat maxScale = 1.0 / [[UIScreen mainScreen] scale];
+        CGFloat maxScale = 1.0;
+        UIScreen * mainScreen = [UIScreen mainScreen];
+        if ([mainScreen respondsToSelector:@selector(scale)]) {
+            maxScale /= [mainScreen scale];
+        }
 		
 		if (minScale > maxScale) {
 			minScale = maxScale;
